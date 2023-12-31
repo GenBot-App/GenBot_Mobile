@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:genbot_mobile/Register/View/registration.dart';
+// import 'package:genbot_mobile/Register/View/widget/dialog.dart';
 import 'package:genbot_mobile/welcome/onboarding_screen.dart';
 
 import 'Login/View/login.dart';
@@ -16,7 +18,7 @@ class GenbotApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Genbot',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.grey,
       ),
       home: const OnboardingScreen(),
       initialRoute: "/",
@@ -26,9 +28,14 @@ class GenbotApp extends StatelessWidget {
             return MaterialPageRoute(
                 builder: (context) => const OnboardingScreen());
           case '/login':
-            return MaterialPageRoute(builder: (context) => LoginPage());
+            return MaterialPageRoute(builder: (context) => const LoginPage());
+          case '/regist':
+            return MaterialPageRoute(builder: (context) => const RegistPage());
+          // case '/dialog':
+          //   return MaterialPageRoute(builder: (context) => DialogContinue());
           default:
-            return MaterialPageRoute(builder: (context) => UnknownRoutePage());
+            return MaterialPageRoute(
+                builder: (context) => const UnknownRoutePage());
         }
       },
     );
@@ -36,13 +43,15 @@ class GenbotApp extends StatelessWidget {
 }
 
 class UnknownRoutePage extends StatelessWidget {
+  const UnknownRoutePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('404 - Halaman tidak ditemukan'),
+        title: const Text('404 - Halaman tidak ditemukan'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Halaman tidak ditemukan'),
       ),
     );
