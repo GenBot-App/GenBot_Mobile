@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:genbot_mobile/Login/View/widget/main_section.dart';
+import 'package:genbot_mobile/Register/View/widget/main_section.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegistPage extends StatefulWidget {
+  const RegistPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegistPage> createState() => _RegistPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegistPageState extends State<RegistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +36,13 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 57,
                           fontFamily: "Nunito",
                           fontWeight: FontWeight.w500)),
-                  Text("Silahkan masuk untuk melanjutkan",
+                  Text("Silahkan daftar untuk melanjutkan",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                           fontFamily: "Nunito",
                           fontWeight: FontWeight.w400)),
-                  SizedBox(height: 127),
+                  SizedBox(height: 30),
                 ],
               ),
             ),

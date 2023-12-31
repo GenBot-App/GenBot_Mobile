@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
-class FromSection extends StatefulWidget {
-  const FromSection({super.key});
+class FormSection extends StatefulWidget {
+  const FormSection({super.key});
 
   @override
-  State<FromSection> createState() => _FromSectionState();
+  State<FormSection> createState() => _FromSectionState();
 }
 
-class _FromSectionState extends State<FromSection> {
+class _FromSectionState extends State<FormSection> {
+  TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
+  bool isConfirmPassVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,49 @@ class _FromSectionState extends State<FromSection> {
           key: _formKey,
           child: Column(
             children: [
+              Container(
+                width: double.infinity,
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  "Nama Lengkap",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Nunito',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              TextFormField(
+                controller: name,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Tidak Boleh Kosong';
+                  }
+
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
               Container(
                 width: double.infinity,
                 alignment: Alignment.centerLeft,
@@ -50,7 +96,7 @@ class _FromSectionState extends State<FromSection> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                      color: Color(0xff3EBDC6),
+                      color: Colors.grey,
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -59,12 +105,12 @@ class _FromSectionState extends State<FromSection> {
                   if (value == null || value.isEmpty) {
                     return 'Tidak Boleh Kosong';
                   }
-                  if (value.contains(' ')) {
-                    return 'Tidak boleh mengandung spasi';
-                  }
                   if (!value.contains('@gmail.com') &&
                       !value.contains('@yahoo.com')) {
-                    return 'Tidak lengkap';
+                    return 'Tidak lengkap"';
+                  }
+                  if (value.contains(' ')) {
+                    return 'Tidak boleh mengandung spasi';
                   }
                   return null;
                 },
@@ -100,7 +146,7 @@ class _FromSectionState extends State<FromSection> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                      color: Color(0xff3EBDC6),
+                      color: Colors.grey,
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -115,8 +161,6 @@ class _FromSectionState extends State<FromSection> {
                         isPasswordVisible = !isPasswordVisible;
                       });
                     },
-                    disabledColor: Colors.grey,
-                    highlightColor: const Color(0xff3EBDC6),
                   ),
                 ),
                 validator: (value) {
@@ -132,7 +176,62 @@ class _FromSectionState extends State<FromSection> {
                   final RegExp regex = RegExp(
                       r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
                   if (!regex.hasMatch(value)) {
-                    return 'Harus mengandung angka, huruf, dan karakter khusus';
+                    return 'Email harus mengandung angka, huruf, dan karakter khusus, serta memiliki panjang minimal 8 karakter';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              Container(
+                width: double.infinity,
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  "Konfirmasi Kata Sandi",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Nunito',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              TextFormField(
+                controller: confirmPassword,
+                obscureText: !isConfirmPassVisible,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isConfirmPassVisible
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isConfirmPassVisible = !isConfirmPassVisible;
+                      });
+                    },
+                  ),
+                ),
+                validator: (value) {
+                  if (value != password.text) {
+                    return 'Konfirmasi Kata Sandi tidak cocok';
                   }
                   return null;
                 },
@@ -141,7 +240,26 @@ class _FromSectionState extends State<FromSection> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, "/beranda");
+                    // buatlah jika tombol di tekan akan menampilkan dialog untuk melanjutkan
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text("Pendaftaran Berhasil"),
+                        content: const Text(
+                            "Silahkan cek email anda untuk melakukan verifikasi"),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/lengkapi-profil");
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    );
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -158,23 +276,6 @@ class _FromSectionState extends State<FromSection> {
                       fontFamily: 'Nunito',
                       fontWeight: FontWeight.w700,
                     )),
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                  children: [
-                    GestureDetector(
-                        child: const Text(
-                          "Lupa Kata Sandi",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "Nunito",
-                              fontWeight: FontWeight.w700),
-                        ),
-                        onTap: () => Navigator.pushNamed(context, '/forgotpwd'))
-                  ],
-                ),
               ),
             ],
           ),

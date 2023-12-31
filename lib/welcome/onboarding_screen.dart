@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:genbot_mobile/Login/View/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'onboarding_page1.dart';
 import 'onboarding_page2.dart';
 import 'onboarding_page3.dart';
-// import 'onboarding_page4.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -17,6 +17,32 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   PageController _controller = PageController();
   bool isLastPage = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfFirstTime();
+  }
+
+  _checkIfFirstTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstTime = prefs.getBool('first_time') ?? true;
+
+    if (!isFirstTime) {
+      // Jika bukan pengguna baru, langsung navigasi ke halaman login atau beranda
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+        ),
+      );
+    }
+  }
+
+  _markFirstTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('first_time', false);
+  }
 
   @override
   Widget build(BuildContext context) {
