@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genbot_mobile/Register/View/widget/dialog.dart';
 
 class FormSection extends StatefulWidget {
   const FormSection({super.key});
@@ -30,6 +31,7 @@ class _FromSectionState extends State<FormSection> {
                 child: const Text(
                   "Nama Lengkap",
                   style: TextStyle(
+                    color: Color(0xFF0096D1),
                     fontSize: 14,
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w700,
@@ -73,6 +75,7 @@ class _FromSectionState extends State<FormSection> {
                 child: const Text(
                   "Email",
                   style: TextStyle(
+                    color: Color(0xFF0096D1),
                     fontSize: 14,
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w700,
@@ -122,6 +125,7 @@ class _FromSectionState extends State<FormSection> {
                 child: const Text(
                   "Kata Sandi",
                   style: TextStyle(
+                    color: Color(0xFF0096D1),
                     fontSize: 14,
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w700,
@@ -188,6 +192,7 @@ class _FromSectionState extends State<FormSection> {
                 child: const Text(
                   "Konfirmasi Kata Sandi",
                   style: TextStyle(
+                    color: Color(0xFF0096D1),
                     fontSize: 14,
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w700,
@@ -230,6 +235,9 @@ class _FromSectionState extends State<FormSection> {
                   ),
                 ),
                 validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Tidak Boleh Kosong';
+                  }
                   if (value != password.text) {
                     return 'Konfirmasi Kata Sandi tidak cocok';
                   }
@@ -242,24 +250,8 @@ class _FromSectionState extends State<FormSection> {
                   if (_formKey.currentState!.validate()) {
                     // buatlah jika tombol di tekan akan menampilkan dialog untuk melanjutkan
                     showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text("Pendaftaran Berhasil"),
-                        content: const Text(
-                            "Silahkan cek email anda untuk melakukan verifikasi"),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, "/lengkapi-profil");
-                            },
-                            child: const Text("OK"),
-                          ),
-                        ],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    );
+                        context: context,
+                        builder: (BuildContext context) => DialogContinue());
                   }
                 },
                 style: ElevatedButton.styleFrom(

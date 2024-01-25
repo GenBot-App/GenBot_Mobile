@@ -22,22 +22,22 @@ class _MainSectionState extends State<MainSection> {
           ),
         ),
         child: const Padding(
-          padding: EdgeInsets.only(left: 30, right: 30, top: 30),
+          padding: EdgeInsets.only(left: 30, right: 30, top: 24),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   'Daftar',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Color(0xFF0096D1),
                     fontSize: 24,
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w700,
                     height: 0,
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 24),
                 FormSection(),
                 SizedBox(height: 20),
                 NavGet(),

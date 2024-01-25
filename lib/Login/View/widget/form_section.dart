@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class FromSection extends StatefulWidget {
-  const FromSection({super.key});
+class FormSection extends StatefulWidget {
+  const FormSection({super.key});
 
   @override
-  State<FromSection> createState() => _FromSectionState();
+  State<FormSection> createState() => _FromSectionState();
 }
 
-class _FromSectionState extends State<FromSection> {
+class _FromSectionState extends State<FormSection> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -27,6 +27,7 @@ class _FromSectionState extends State<FromSection> {
                 child: const Text(
                   "Email",
                   style: TextStyle(
+                    color: Color(0xFF0096D1),
                     fontSize: 14,
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w700,
@@ -76,6 +77,7 @@ class _FromSectionState extends State<FromSection> {
                 child: const Text(
                   "Kata Sandi",
                   style: TextStyle(
+                    color: Color(0xFF0096D1),
                     fontSize: 14,
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w700,

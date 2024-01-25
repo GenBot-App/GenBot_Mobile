@@ -22,19 +22,19 @@ class _MainSectionState extends State<MainSection> {
           ),
         ),
         child: const Padding(
-          padding: EdgeInsets.only(left: 30, right: 30, top: 30),
+          padding: EdgeInsets.only(left: 30, right: 30, top: 24),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(
                   width: double.infinity,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         'Masuk',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Color(0xFF0096D1),
                           fontSize: 24,
                           fontFamily: 'Nunito',
                           fontWeight: FontWeight.w700,
@@ -42,12 +42,12 @@ class _MainSectionState extends State<MainSection> {
                         ),
                       ),
                       SizedBox(height: 24),
-                      FromSection(),
-                      SizedBox(height: 79),
-                      NavGet(),
+                      FormSection(),
+                      SizedBox(height: 185),
                     ],
                   ),
-                )
+                ),
+                NavGet(),
               ],
             ),
           ),

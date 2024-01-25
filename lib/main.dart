@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:genbot_mobile/Register/View/registration.dart';
 // import 'package:genbot_mobile/Register/View/widget/dialog.dart';
-import 'package:genbot_mobile/welcome/onboarding_screen.dart';
+// import 'package:genbot_mobile/welcome/onboarding_screen.dart';
 
 import 'Login/View/login.dart';
 
@@ -20,15 +20,14 @@ class GenbotApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const OnboardingScreen(),
+      home: const LoginPage(),
       initialRoute: "/",
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/':
-            return MaterialPageRoute(
-                builder: (context) => const OnboardingScreen());
-          case '/login':
             return MaterialPageRoute(builder: (context) => const LoginPage());
+          // case '/login':
+          //   return MaterialPageRoute(builder: (context) => const LoginPage());
           case '/regist':
             return MaterialPageRoute(builder: (context) => const RegistPage());
           // case '/dialog':
